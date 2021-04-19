@@ -1,0 +1,57 @@
+//Problem2-Solution1
+ALGORITHM 
+VAR
+    Set1 : ARRAY_OF INTEGER[];
+    Set2 : ARRAY_OF INTEGER[];
+    i    : INTEGER;
+    sum  : INTEGER :=0;
+BEGIN
+    Write("give Set1");
+        Read(set1);
+    Write("give Set2");
+        Read(set2); 
+END
+    FOR i FROM 0 TO set1.length-1 STEP 1 DO
+            j:=0;
+        WHILE ( j<=set2.length-1 and set1[i]=set2[j]) DO
+            j++
+        END_WHILE 
+            IF(j=set2.length) THEN
+                sum:= sum +set1[i]+set2[i]
+            END IF 
+    END FOR   
+    FOR j FROM 0 TO set2.length-1 STEP 1 DO
+            i:=0;
+        WHILE ( i<=set1.length-1 and set1[i]=set2[j]) DO
+            i++
+        END_WHILE 
+            IF(i=set1.length) THEN
+                sum:= sum +set2[i]+set1[i]
+            END IF     
+    END FOR
+END
+//Problem2-Solution2
+ALGORITHM HASH-TABLE
+VAR
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    Set1 : INTEGER[];
+    Set2 : INTEGER[];
+    i    : INTEGER;
+    sum  :=0;
+    Count: INTEGER;
+BEGIN
+    FOR i FROM 0 TO Set1.length-1 STEP 1  DO
+        IF (htab.lookup(Set1[i]) = TRUE) THEN
+            Count := htab.get(Set1[i]);
+            htab.insert(Set1[i],Count+1);
+        ELSE
+            htab.insert(Set1[i],1);
+        END_IF
+    END_FOR
+    FOR i FROM 0 TO Set1.length-1 STEP 1  DO
+        IF (htab.get(Set1[i]) >1) THEN
+            sum:=  sum+ Set1[i] + Set2[i];
+            BREAK;
+        END_IF
+    END_FOR
+END
